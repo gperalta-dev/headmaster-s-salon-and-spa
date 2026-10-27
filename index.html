@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Headmaster&#x27;s Salon and Spa | Laurel, Edmonton (preview)</title>
-<meta name="description" content="Beauty salon at 2539 17 St NW. Call ahead or come by. Free website preview by Local Studio. Not the official site.">
+<meta name="description" content="Beauty salon at 2539 17 St NW. Call to confirm availability. Free website preview by Local Studio. Not the official site.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
   .nav-call svg { width: 18px; height: 18px; }
 
   /* hero */
-  .hero { position: relative; min-height: 100vh; min-height: 100svh; background: radial-gradient(1200px 700px at 78% 20%, var(--bg-2), transparent 60%), var(--bg); color: var(--on-dark); display: flex; align-items: center; overflow: hidden; }
+  .hero { position: relative; min-height: min(100vh, 880px); min-height: min(100svh, 880px); background: radial-gradient(1200px 700px at 78% 20%, var(--bg-2), transparent 60%), var(--bg); color: var(--on-dark); display: flex; align-items: center; overflow: hidden; }
   .hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px); background-size: 26px 26px; mask-image: linear-gradient(to bottom, black, transparent 85%); }
   .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; padding: 120px 0 80px; }
   .where { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); font-weight: 600; font-size: 15px; margin-bottom: 18px; }
@@ -139,6 +139,8 @@
 
 
   /* real photos */
+  .k-sample { position: absolute; z-index: 2; left: 16px; top: 16px; padding: 4px 11px; border-radius: 999px; background: rgba(10, 12, 16, 0.66); color: #fff; font: 600 12.5px/1.35 system-ui, sans-serif; letter-spacing: 0.01em; pointer-events: none; }
+  figure { position: relative; }
   .hero-photo { position: absolute; top: 6%; right: 4%; width: 74%; height: 78%; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.95); transform: scale(1.04); animation: kenburns 18s ease-in-out infinite alternate; }
   .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, transparent 40%, color-mix(in srgb, var(--bg) 55%, transparent)); }
@@ -194,6 +196,38 @@
   footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; }
   footer a { color: rgba(244, 241, 234, 0.85); }
 
+  /* chat assistant (client-side, answers only from the listing data in #biz) */
+  .chat-fab { position: fixed; right: 24px; bottom: 24px; z-index: 30; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px 0 18px; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: 700 16px/1 "Figtree", sans-serif; cursor: pointer; box-shadow: 0 12px 32px rgba(5, 10, 15, 0.35); transition: transform 160ms ease; }
+  .chat-fab:hover { transform: translateY(-2px); }
+  .chat-fab svg { width: 22px; height: 22px; }
+  .chat { position: fixed; right: 24px; bottom: 24px; z-index: 40; width: 380px; height: min(580px, calc(100vh - 48px)); height: min(580px, calc(100dvh - 48px)); display: none; flex-direction: column; background: #fff; color: var(--ink); border-radius: 22px; box-shadow: 0 24px 70px rgba(5, 10, 15, 0.4); overflow: hidden; }
+  .chat.open { display: flex; }
+  .chat-head { background: var(--bg); color: var(--on-dark); padding: 14px 14px 14px 18px; display: flex; align-items: center; gap: 12px; }
+  .chat-head .mark { flex: none; }
+  .chat-head .t { flex: 1; min-width: 0; }
+  .chat-head b { display: block; font: 700 17px/1.2 "Bricolage Grotesque", sans-serif; }
+  .chat-head small { display: flex; align-items: center; gap: 7px; color: var(--on-dark-muted); font-size: 13.5px; margin-top: 2px; }
+  .chat-head small .dot { width: 9px; height: 9px; animation: none; flex: none; }
+  .chat-x { flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: var(--on-dark); cursor: pointer; display: grid; place-items: center; }
+  .chat-x:hover { background: rgba(255, 255, 255, 0.2); }
+  .chat-x svg { width: 20px; height: 20px; }
+  .chat-log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #f6f4ef; overscroll-behavior: contain; }
+  .msg { white-space: pre-line; max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
+  .msg.bot { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+  .msg.me { align-self: flex-end; background: var(--bg); color: var(--on-dark); border-bottom-right-radius: 5px; }
+  .msg .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .msg .acts a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 15px; text-decoration: none; }
+  .msg .acts a.alt { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .msg.typing { color: var(--muted); letter-spacing: 3px; }
+  .chat-chips { display: flex; gap: 8px; padding: 10px 14px 0; overflow-x: auto; background: #fff; scrollbar-width: none; }
+  .chat-chips::-webkit-scrollbar { display: none; }
+  .chat-chips button { flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--bg) 25%, #fff); background: #fff; color: var(--ink); font: 600 15px/1 "Figtree", sans-serif; cursor: pointer; }
+  .chat-chips button:hover { border-color: var(--bg); }
+  .chat-form { display: flex; gap: 8px; padding: 10px 14px; background: #fff; }
+  .chat-form input { flex: 1; min-width: 0; min-height: 48px; border: 1.5px solid #c9ccd1; border-radius: 999px; padding: 0 18px; font: 400 16px "Figtree", sans-serif; color: var(--ink); background: #fff; }
+  .chat-form button { flex: none; min-height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--bg); color: var(--on-dark); font: 700 16px "Figtree", sans-serif; cursor: pointer; }
+  .chat-note { padding: 0 16px 12px; background: #fff; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+
   .callbar { display: none; }
 
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -222,6 +256,8 @@
     .callbar { display: flex; position: fixed; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 20; gap: 10px; }
     .callbar .btn { flex: 1; box-shadow: var(--shadow); white-space: nowrap; }
     .callbar .btn-ghost { flex: 0 0 auto; background: var(--bg); }
+    .chat-fab { right: 12px; bottom: calc(max(12px, env(safe-area-inset-bottom)) + 66px); min-height: 48px; padding: 0 18px 0 14px; }
+    .chat { right: 8px; left: 8px; bottom: 8px; width: auto; height: min(620px, calc(100vh - 16px)); height: min(620px, calc(100dvh - 16px)); }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -250,7 +286,7 @@
     <div>
       <div class="where">Laurel, Edmonton</div>
       <h1>Headmaster&#x27;s Salon and Spa<span>Hair and beauty in Laurel.</span></h1>
-      <p class="lead">Beauty salon at 2539 17 St NW. Call ahead or come by.</p>
+      <p class="lead">Beauty salon at 2539 17 St NW. Call to confirm availability.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="tel:+17807526000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call (780) 752-6000</a>
         <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Headmaster%27s+Salon+and+Spa%2C+2539+17+St+NW%2C+Edmonton%2C+AB+T6T+0Y2" target="_blank" rel="noopener">Get directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -258,7 +294,7 @@
       <div class="trust"><span class="stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></span><span>3.9 on Google from 612 reviews</span></div>
     </div>
     <div class="show" aria-hidden="true">
-      <div class="hero-photo"><img src="img/photo-1.jpg" alt=""></div>
+      <div class="hero-photo"><span class="k-sample">Sample photo</span><img src="img/photo-1.jpg" alt=""></div>
       <div class="card c-status">
         <div class="lbl">Right now</div>
         <div class="state"><i class="dot" id="hero-dot"></i><span id="hero-state">Open</span></div>
@@ -277,8 +313,8 @@
   <section class="block" id="prices">
     <div class="wrap">
       <div class="eyebrow">Services and prices</div>
-      <h2>Known for highlights.</h2>
-      <div class="prices"><div class="tier"><span class="tag">Popular</span><h3>Threading</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it on the spot.</p><ul><li><i></i>Mentioned in 16 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div><div class="tier top"><span class="tag">Most mentioned on Google</span><h3>Highlights</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it on the spot.</p><ul><li><i></i>Mentioned in 18 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-primary" href="tel:+17807526000">Call to book</a></div><div class="tier"><span class="tag">Popular</span><h3>Keratin treatment</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it on the spot.</p><ul><li><i></i>Mentioned in 12 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div></div>
+      <h2>Services.</h2>
+      <div class="prices"><div class="tier"><span class="tag">Popular</span><h3>Threading</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 16 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div><div class="tier top"><span class="tag">Most mentioned on Google</span><h3>Highlights</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 18 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-primary" href="tel:+17807526000">Call to book</a></div><div class="tier"><span class="tag">Popular</span><h3>Keratin treatment</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 12 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div></div>
     </div>
   </section>
 
@@ -286,7 +322,7 @@
     <div class="wrap">
       <div class="eyebrow">Gallery</div>
       <h2>A look inside.</h2>
-      <div class="gallery"><figure class="shot photo"><img src="img/photo-1.jpg" alt="Highlights" loading="lazy"><figcaption>Highlights</figcaption></figure><figure class="shot photo"><img src="img/photo-2.jpg" alt="Threading" loading="lazy"><figcaption>Threading</figcaption></figure><figure class="shot photo"><img src="img/photo-3.jpg" alt="Keratin treatment" loading="lazy"><figcaption>Keratin treatment</figcaption></figure><figure class="shot photo"><img src="img/photo-4.jpg" alt="Beauty salon" loading="lazy"><figcaption>Beauty salon</figcaption></figure></div>
+      <div class="gallery"><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-1.jpg" alt="Salon chairs" loading="lazy"><figcaption>Salon chairs</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-2.jpg" alt="Eyebrow threading" loading="lazy"><figcaption>Eyebrow threading</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-3.jpg" alt="Highlights in foils" loading="lazy"><figcaption>Highlights in foils</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-4.jpg" alt="Stylists at work" loading="lazy"><figcaption>Stylists at work</figcaption></figure></div>
     </div>
   </section>
 
@@ -294,7 +330,7 @@
     <div class="wrap grid-2">
       <div>
         <div class="eyebrow">Hours</div>
-        <h2>Come in when it suits you.</h2>
+        <h2>Call to confirm availability.</h2>
         <p class="live"><i class="dot" id="hours-dot"></i><span id="hours-state"></span></p>
       </div>
       <div class="hours" id="hours-table"></div>
@@ -330,7 +366,7 @@
   <div class="wrap">
     <span>Preview made by Local Studio, Edmonton, for Headmaster&#x27;s Salon and Spa. Details from the public Google listing (Oct 27, 2026). Not the official website.</span>
     <a href="https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw" target="_blank" rel="noopener">Headmaster&#x27;s Salon and Spa on Google Maps</a>
-    <span style="flex-basis:100%;font-size:12.5px;opacity:0.75">Photos: <a href="https://commons.wikimedia.org/wiki/File:Hair_stylist_repairing_a_hair_clipper.jpg" target="_blank" rel="noopener">Kwamitsey</a> (CC BY 4.0); <a href="https://commons.wikimedia.org/wiki/File:Woman_getting_her_eyebrows_threaded.jpg" target="_blank" rel="noopener">butterbeeee</a> (CC BY-SA 2.0); <a href="https://commons.wikimedia.org/wiki/File:Barbershop_haircutting_session_(51210140096).jpg" target="_blank" rel="noopener">Hair Spies from US</a> (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:A_hairdresser_at_work_in_Ivory_Coast.jpg" target="_blank" rel="noopener">Melchisedek ABAKA</a> (CC BY-SA 4.0), via Wikimedia Commons. Sample photos until Headmaster&#x27;s Salon and Spa adds their own.</span>
+    <span style="flex-basis:100%;font-size:12.5px;opacity:0.75">Photos: <a href="https://commons.wikimedia.org/wiki/File:Hair_salon_-_Arlington,_MA.jpg" target="_blank" rel="noopener">Daderot</a> (CC0); <a href="https://commons.wikimedia.org/wiki/File:1-Fairies-_photo_by_Foad_SeyedMohammadi.jpg" target="_blank" rel="noopener">Foad SM</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Blow_hair_dryer.jpg" target="_blank" rel="noopener">Goldmund100</a> (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Ricky_Reyes_salon_interiorB.jpg" target="_blank" rel="noopener">Unknown</a> (CC BY-SA 4.0), via Wikimedia Commons. Sample photos until Headmaster&#x27;s Salon and Spa adds their own.</span>
   </div>
 </footer>
 
@@ -339,7 +375,23 @@
   <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Headmaster%27s+Salon+and+Spa%2C+2539+17+St+NW%2C+Edmonton%2C+AB+T6T+0Y2" target="_blank" rel="noopener" aria-label="Get directions">Directions</a>
 </div>
 
-<script type="application/json" id="biz">{"hours": {"Monday": "10 a.m. to 8 p.m.", "Tuesday": "10 a.m. to 8 p.m.", "Wednesday": "10 a.m. to 8 p.m.", "Thursday": "10 a.m. to 8 p.m.", "Friday": "10 a.m. to 8 p.m.", "Saturday": "10 a.m. to 7 p.m.", "Sunday": "10 a.m. to 7 p.m."}}</script>
+<button class="chat-fab" id="chat-fab" type="button" aria-expanded="false" aria-controls="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></svg>Ask us</button>
+<section class="chat" id="chat" role="dialog" aria-label="Headmaster&#x27;s Salon and Spa chat assistant">
+  <div class="chat-head">
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 3 5 4 5 8a5 5 0 0 1-10 0c0-4 3-5 5-8z"/><path d="M12 14v7"/></svg></span>
+    <div class="t"><b>Headmaster&#x27;s Salon and Spa</b><small><i class="dot" id="chat-dot"></i><span id="chat-status"></span></small></div>
+    <button class="chat-x" id="chat-x" type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+  <form class="chat-form" id="chat-form" autocomplete="off">
+    <input id="chat-in" type="text" maxlength="200" placeholder="Ask about hours, location, services" aria-label="Your question" enterkeyhint="send">
+    <button type="submit">Send</button>
+  </form>
+  <div class="chat-note">Demo assistant by Local Studio. It answers only from Headmaster&#x27;s Salon and Spa's Google listing. For anything else, call or text.</div>
+</section>
+
+<script type="application/json" id="biz">{"hours": {"Monday": "10 a.m. to 8 p.m.", "Tuesday": "10 a.m. to 8 p.m.", "Wednesday": "10 a.m. to 8 p.m.", "Thursday": "10 a.m. to 8 p.m.", "Friday": "10 a.m. to 8 p.m.", "Saturday": "10 a.m. to 7 p.m.", "Sunday": "10 a.m. to 7 p.m."}, "name": "Headmaster's Salon and Spa", "category": "Beauty salon", "area": "Laurel", "address": "2539 17 St NW, Edmonton, AB T6T 0Y2", "phone": "(780) 752-6000", "tel": "+17807526000", "rating": "3.9", "reviews": "612", "maps_url": "https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw", "directions_url": "https://www.google.com/maps/dir/?api=1&destination=Headmaster%27s+Salon+and+Spa%2C+2539+17+St+NW%2C+Edmonton%2C+AB+T6T+0Y2", "services": [["highlights", 18], ["threading", 16], ["keratin treatment", 12]]}</script>
 <script>
   // live open/closed status in edmonton time, from the hours on the google listing
   const biz = JSON.parse(document.getElementById('biz').textContent);
@@ -358,7 +410,8 @@
       if (!b) return null;
       let s = toMin(a), e = toMin(b);
       if (s == null || e == null) return null;
-      if (!/[ap]\.?m/i.test(a) && /p\.?m/i.test(b) && s + 720 < e) s += 0;
+      // "4 to 8 p.m.": the start has no a.m./p.m., so it takes the end's. if that puts it after the end ("11 to 2 p.m."), it is the morning
+      if (!/[ap]\.?m/i.test(a) && /[ap]\.?m/i.test(b)) { if (/p\.?m/i.test(b) && s < 720) s += 720; if (s >= e && s >= 720) s -= 720; }
       if (e <= s) e += 1440;
       return [s, e];
     }).filter(Boolean);
@@ -386,8 +439,7 @@
     document.getElementById(dot).classList.toggle('closed', !open);
     document.getElementById(label).textContent = label === 'hours-state' ? `${state}. ${sub}.` : state;
   }
-  document.getElementById('hero-sub').textContent = sub;
-  const week = document.getElementById('hero-week');
+  document.getElementById('hero-sub').textContent = sub;  const week = document.getElementById('hero-week');
   DAYS.forEach((d, k) => {
     const cell = document.createElement('div');
     const bar = document.createElement('i');
@@ -406,6 +458,237 @@
   // grow the review-topic bars once they are on screen
   const bars = document.querySelectorAll('.topic .bar span');
   requestAnimationFrame(() => setTimeout(() => bars.forEach((b) => { b.style.width = b.dataset.w; }), 250));
+</script>
+<script>
+  // chat assistant: rule-based, runs in the page, no network calls, no API key.
+  // it answers from `biz` (the google listing data) and hands everything else to call or text.
+  (function () {
+    const fab = document.getElementById('chat-fab'), box = document.getElementById('chat');
+    const log = document.getElementById('chat-log'), input = document.getElementById('chat-in');
+    const chips = document.getElementById('chat-chips');
+    const phone = biz.phone, tel = biz.tel;
+    const nowEdm = () => new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Edmonton' }));
+    const todayIdx = () => (nowEdm().getDay() + 6) % 7;
+    const hoursOf = (k) => (biz.hours || {})[DAYS[k]] || '';
+    const known = Object.keys(biz.hours || {}).length > 0;
+    const callAct = { label: 'Call ' + phone, href: 'tel:' + tel };
+    const textAct = { label: 'Text', href: 'sms:' + tel, alt: true };
+    const contactActs = [callAct, textAct];
+    const noHours = { text: "I don't have hours on file. Call or text and we'll tell you.", acts: contactActs };
+
+    function status() {
+      const n = nowEdm(), t = todayIdx(), m = n.getHours() * 60 + n.getMinutes();
+      const cur = spans(hoursOf(t)).find(([s, e]) => m >= s && m < e);
+      if (cur) return { open: true, closes: pretty(cur[1]) };
+      let next = null;
+      for (let k = 0; k < 7 && !next; k++) {
+        const d = (t + k) % 7, s = spans(hoursOf(d)).find(([a]) => k > 0 || a > m);
+        if (s) next = { k, d, at: pretty(s[0]), end: pretty(s[1]) };
+      }
+      return { open: false, next };
+    }
+    const when = (nx) => nx.k === 0 ? 'today' : nx.k === 1 ? 'tomorrow' : DAYS[nx.d];
+    function paintStatus() {
+      const dot = document.getElementById('chat-dot'), label = document.getElementById('chat-status');
+      if (!known) { dot.classList.add('closed'); label.textContent = 'Call to check hours'; return; }
+      const s = status();
+      dot.classList.toggle('closed', !s.open);
+      label.textContent = s.open ? 'Open now, closes ' + s.closes : 'Closed now' + (s.next ? ', opens ' + when(s.next) + ' at ' + s.next.at : '');
+    }
+    function hoursSummary() {
+      const rows = [];
+      DAYS.forEach((d, k) => {
+        const h = hoursOf(k) || 'Closed', last = rows[rows.length - 1];
+        if (last && last.h === h && last.to === k - 1) last.to = k; else rows.push({ from: k, to: k, h });
+      });
+      return rows.map((r) => (r.from === r.to ? DAYS[r.from] : DAYS[r.from].slice(0, 3) + ' to ' + DAYS[r.to].slice(0, 3)) + ': ' + r.h).join('\n');
+    }
+    const norm = (s) => ' ' + s.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+    const GENERIC = ['haircut', 'haircuts', 'cut', 'cuts', 'hair', 'the', 'for', 'and', 'fresh'];
+    const stem = (w) => w.replace(/s$/, '');
+    function matchServices(q) {
+      const words = q.trim().split(' ').map(stem);
+      return (biz.services || []).map(([name, n]) => {
+        const toks = norm(name).trim().split(' ').filter((tok) => tok.length > 2 && !GENERIC.includes(tok)).map(stem);
+        let i = words.findIndex((w) => toks.includes(w));
+        if (i < 0 && /kid/.test(name)) i = words.findIndex((w) => /^(kid|child|children|boy|son|toddler)$/.test(w));
+        return i < 0 ? null : [name, n, i];
+      }).filter(Boolean).sort((a, b) => a[2] - b[2]);
+    }
+    // every day the question names, in the order asked ("today", "tomorrow", day names, "weekend")
+    function dayRefs(q) {
+      const found = [];
+      const add = (k, at) => { if (!found.some((f) => f.k === k)) found.push({ k, at }); };
+      const at = (rx) => { const m = rx.exec(q); return m ? m.index : -1; };
+      let i;
+      if ((i = at(/ (today|tonight) /)) >= 0) add(todayIdx(), i);
+      if ((i = at(/ tomorrow /)) >= 0) add((todayIdx() + 1) % 7, i);
+      if ((i = at(/ weekends? /)) >= 0) { add(5, i); add(6, i); }
+      DAYS.forEach((d, k) => { if ((i = at(new RegExp(' (' + d.toLowerCase() + '|' + d.toLowerCase().slice(0, 3) + ')s? '))) >= 0) add(k, i); });
+      return found.sort((a, b) => a.at - b.at).map((f) => f.k);
+    }
+    function dayAnswer(ks) {
+      if (!known) return noHours;
+      return { text: ks.map((k) => {
+        const h = hoursOf(k), name = k === todayIdx() ? 'Today (' + DAYS[k] + ')' : DAYS[k];
+        return spans(h).length ? name + " we're open " + h + '.' : 'We are closed on ' + DAYS[k] + '.';
+      }).join('\n') };
+    }
+
+    // words the assistant understands. a question with any other word is handed off, never answered from a keyword match
+    const KNOWN = new Set(('a an the any some my me i we us you your yours our it its is are am was be do does did can could would will have has get got need needs want wants looking ' +
+      'what which when where how who whats there here this that if so with by on at in of to for from and or also please just really quick question wondering tell know let guys ok okay yes no about right still around then soon sometime anytime ' +
+      'open opened opening close closed closes closing hours hour schedule time times now today tonight tomorrow currently late early until till morning afternoon evening day days week weekend ' +
+      'address location located directions direction map maps find street near nearby way go come stop phone number call text contact reach rating rated review reviews star stars good best recommend people say reputation ' +
+      'service services offer offers menu style styles specialty trim trims cut cuts haircut haircuts hair fade fades kid kids child children boy son toddler daughter girl ' +
+      'robot robots bot real human person machine automated chatbot talking ai thanks thank thx cheers appreciate hi hello hey hiya bye goodbye later much again very take takes accept accepts price prices pricing cost costs much charge fee fees cheap discount deposit pay payment card cash debit tip student senior coupon book booking appointment appointments reserve reservation walk walkin walkins ins wait waiting cancel reschedule queue ' +
+      'park parking bus transit train lrt wheelchair accessible accessibility wifi pet pets dog dogs product products gift gifts career careers job jobs hiring ' +
+      'mon tue wed thu fri sat sun monday tuesday wednesday thursday friday saturday sunday').split(' '));
+    [biz.name, biz.area, biz.category, ...(biz.services || []).map((s) => s[0])].forEach((s) => norm(s).trim().split(' ').forEach((w) => KNOWN.add(w)));
+    const unknownWords = (q) => q.trim().split(' ').filter((w) => w && !/^\d+$/.test(w) && !KNOWN.has(w) && !KNOWN.has(stem(w)));
+    const handoff = { text: "I don't have that. I only know our hours, address, phone and what's in our Google reviews. Call or text " + phone + ' and a person will help.', acts: contactActs };
+
+    // every intent a question contains contributes a part; parts are merged in the order they were asked.
+    // anything that can't be answered completely (digits, dates, holidays, unknown words) hands the whole question off.
+    const SOCIAL = new Set('hi hello hey yo hiya good morning afternoon evening thanks thank you thx cheers appreciate it bye goodbye see later much so very a lot again there now'.split(' '));
+    function answer(raw) {
+      const q = norm(raw), R = (rx) => rx.test(q);
+      const words = q.trim().split(' ');
+      // dates and clock times (12/25, 2026-12-25, 5pm, 24/7) are not in the data: never answer them with today's status
+      if (/\d/.test(raw)) return handoff;
+      // social replies only for social-only messages
+      if (words.every((w) => SOCIAL.has(w))) {
+        if (R(/ (thanks|thank|thx|cheers|appreciate) /)) return { text: "You're welcome! See you soon." };
+        if (R(/ (bye|goodbye|see you|later) /)) return { text: 'Take care!' };
+        return { text: 'Hi! Ask me about hours, where we are, services or how to reach us.' };
+      }
+      // holidays and anything we have no data for: hand off instead of guessing from a keyword
+      if (R(/ (christmas|xmas|boxing day|easter|thanksgiving|halloween|new years?|canada day|victoria day|labou?r day|remembrance|family day|good friday|holidays?|stat|long weekend) /))
+        return { text: "I don't have holiday hours. Call or text " + phone + " to check before you come.", acts: contactActs };
+      if (unknownWords(q).length) return handoff;
+
+      const at = (rx) => { const m = rx.exec(q); return m ? m.index : -1; };
+      const parts = [];
+      if (R(/ (are you|r u|am i talking to) (a |an |the )?(real|human|person|bot|robot|ai|machine|automated|chatbot|talking)/))
+        parts.push({ i: at(/ (are you|r u|am i talking to) /), text: "I'm an automated assistant. I only know what's on our Google listing: hours, address, phone and what people say about us. For anything else, call or text and a person will help.", acts: contactActs });
+      const push = (rx, text, acts) => { const i = at(rx); if (i >= 0) parts.push({ i, text, acts }); return i >= 0; };
+
+      // things we don't have: one combined handoff
+      const parking = at(/ (park|parking|bus|transit|train|lrt|wheelchair|accessible|accessibility|wifi|pets?|dogs?|products?|gift|gifts|careers?|jobs?|hiring) /);
+      const price = at(/ (price|prices|pricing|cost|costs|how much|charge|fee|fees|cheap|discount|deposit|pay|payment|card|cash|debit|tip|student|senior|coupon) /);
+      const book = at(/ (book|booking|appointment|appointments|reserve|reservation|walk in|walkin|walk ins|walkins|wait time|waiting|cancel|reschedule|queue) /);
+      const noData = [parking, price, book].filter((i) => i >= 0);
+      if (noData.length) {
+        const text = price >= 0 && book >= 0 ? "I don't have prices or payment details, and I can't book or check the wait. Call or text " + phone + " and we'll sort it out."
+          : price >= 0 ? "I don't have prices or payment details. Call or text " + phone + " and we'll quote you."
+          : book >= 0 ? "I can't book or check the wait. Call or text " + phone + " and we'll sort it out."
+          : "I don't have that on our listing. Call or text " + phone + " and we'll tell you.";
+        parts.push({ i: Math.min(...noData), text, acts: contactActs });
+      }
+      if (!noData.length)
+        push(/ (phone|number|call|text|contact|reach|email|dm|message|instagram|facebook) /, 'Call or text ' + phone + '.', contactActs);
+      push(/ (where|address|location|directions?|map|maps|find you|get there|located|street|how do i get|near|nearby) /,
+        biz.address ? 'We are at ' + biz.address + '.' : 'Call or text for our address.',
+        [{ label: 'Get directions', href: biz.directions_url }, { label: 'Open in Maps', href: biz.maps_url, alt: true }]);
+
+      const svcs = matchServices(q);
+      const listRx = / (services?|offer|menu|do you do|what do you do|haircuts?|hair cuts?|cuts?|trims?|styles?|specialt(y|ies)|good at) /;
+      const noPrices = price < 0 && book < 0; // when prices/booking were asked, the handoff part already says so
+      const listAsked = / (services?|offer|menu|specialt(y|ies)) /.test(q);
+      if (listAsked || !svcs.length) {
+        const list = (biz.services || []).map((s) => s[0] + ' (' + s[1] + ' reviews)').join(', ');
+        push(listAsked ? / (services?|offer|menu|specialt(y|ies)) / : listRx, list ? 'What reviewers mention most: ' + list + '.' + (noPrices ? ' For the full list and prices, call or text ' + phone + '.' : '') : 'Call or text ' + phone + ' to ask what we offer.', contactActs);
+      } else {
+        const named = svcs.map((s) => s[0] + ' (' + s[1] + ' reviews)');
+        const list = named.length > 1 ? named.slice(0, -1).join(', ') + ' and ' + named[named.length - 1] : named[0];
+        parts.push({ i: Math.max(0, at(new RegExp(' ' + norm(svcs[0][0]).trim().split(' ')[0].replace(/s$/, '') + '\\w* '))),
+          text: list.charAt(0).toUpperCase() + list.slice(1) + (svcs.length > 1 ? ' are things' : ' is one of the things') + ' people mention in our Google reviews.' + (noPrices ? ' I do not have prices or appointment times, so call or text ' + phone + ' to ask.' : ''), acts: contactActs });
+      }
+      if (biz.rating)
+        push(/ (rating|rated|reviews?|stars?|good|best|recommend|people say|reputation) /, biz.rating + ' stars on Google from ' + biz.reviews + ' reviews. Reviewers mention ' + (biz.services || []).map((s) => s[0]).join(', ') + '.', [{ label: 'Read the reviews', href: biz.maps_url }]);
+
+      // hours: each clause of the question ("... and ...", "... or ...") is answered on its own
+      // (same-length rewrites keep positions comparable with the other parts)
+      const hq = q.replace(/ (opening|open|business|closing) (hours|times) /g, (m, a, b) => ' ' + '_'.repeat(a.length) + ' hours ')
+        .replace(/ (open|opens|opening) (and|or) (close|closes|closing) /g, (m) => m.replace(' and ', '_and_').replace(' or ', '_or_'));
+      const clauses = []; { let st = 0, m; const sep = / (and|or) /g; while ((m = sep.exec(hq))) { clauses.push([st, hq.slice(st, m.index) + ' ']); st = m.index + m[0].length - 1; } clauses.push([st, hq.slice(st)]); }
+      let plainStatus = false;
+      clauses.forEach(([off, c]) => {
+        const hw = / (hours|schedule|timings?) /.exec(c), dr = dayRefs(c), oc = / (open|open_and_close|open_or_close|opened|opens|opening|close|closed|closes|closing|late|early) /.exec(c);
+        if (!hw && !dr.length && !oc) return;
+        if (!known) { parts.push({ i: off + Math.max(0, hw ? hw.index : 0, oc ? oc.index : 0), text: noHours.text, acts: noHours.acts }); return; }
+        if (hw) parts.push({ i: off + hw.index, text: hoursSummary() });
+        if (dr.length) {
+          let text = dayAnswer(dr).text;
+          if (/ (now|currently) /.test(c)) { const s = status(); text = (s.open ? "We're open now, until " + s.closes + '.' : 'We are closed right now.' + (s.next ? ' We open ' + when(s.next) + ' at ' + s.next.at + '.' : '')) + '\n' + text; }
+          parts.push({ i: off + Math.max(0, oc ? oc.index : 0, (/ (today|tonight|tomorrow|weekends?|monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tue|wed|thu|fri|sat|sun)s? /.exec(c) || { index: 0 }).index), text });
+        } else if (oc) {
+          const s = status(), both = /open_(and|or)_close/.test(c);
+          const asksOpen = both || (/ (open|opens|opening) /.test(c) && / (what time|when) /.test(c)), asksClose = both || / (close|closes|closing) /.test(c);
+          const onlyClosed = / closed /.test(c) && !/ open /.test(c);
+          if (!asksOpen && !asksClose) { if (plainStatus) return; plainStatus = true; } // one open-now answer, even for "open and closed?"
+          let text;
+          if (s.open) {
+            if (asksOpen) text = dayAnswer([todayIdx()]).text;
+            else if (onlyClosed) text = "No, we're open now. We close at " + s.closes + ' today.';
+            else text = asksClose && !/ (open|now) /.test(c) ? 'We close at ' + s.closes + ' today.' : "Yes, we're open now. We close at " + s.closes + ' today.';
+          } else if (s.next) {
+            text = asksOpen || asksClose ? 'We open ' + when(s.next) + ' at ' + s.next.at + (asksClose ? ' and close at ' + s.next.end : '') + '.'
+              : (onlyClosed ? 'Yes, we are closed right now. ' : 'We are closed right now. ') + 'We open ' + when(s.next) + ' at ' + s.next.at + '.';
+          } else text = 'Call or text for our hours.';
+          parts.push({ i: off + oc.index, text });
+        }
+      });
+
+      if (!parts.length) return handoff;
+      parts.sort((a, b) => a.i - b.i);
+      for (let k = parts.length - 1; k > 0; k--) if (parts.slice(0, k).some((x) => x.text === parts[k].text)) parts.splice(k, 1);
+      const acts = [];
+      parts.forEach((p) => (p.acts || []).forEach((a) => { if (!acts.some((x) => x.href === a.href)) acts.push(a); }));
+      return { text: parts.map((p) => p.text).join('\n'), acts: acts.length ? acts : undefined };
+    }
+
+    function add(cls, text, acts) {
+      const m = document.createElement('div'); m.className = 'msg ' + cls; m.textContent = text.replace(/\.{2}(?!\.)/g, '.');
+      if (acts && acts.length) {
+        const a = document.createElement('div'); a.className = 'acts';
+        acts.forEach((x) => {
+          const l = document.createElement('a'); l.href = x.href; l.textContent = x.label;
+          if (x.alt) l.className = 'alt';
+          if (/^https?:/.test(x.href)) { l.target = '_blank'; l.rel = 'noopener'; }
+          a.append(l);
+        });
+        m.append(a);
+      }
+      log.append(m); log.scrollTop = log.scrollHeight; return m;
+    }
+    function ask(text) {
+      text = text.trim(); if (!text) return;
+      add('me', text);
+      const wait = add('bot typing', '•••');
+      setTimeout(() => { const r = answer(text); wait.remove(); add('bot', r.text, r.acts); }, 350);
+    }
+    function start() {
+      paintStatus();
+      add('bot', 'Hi! I can answer questions about ' + biz.name + ': hours, where we are, services. For anything else I will point you to call or text.');
+      [['Open now?', 'Are you open now?'], ['Hours', 'What are your hours?'], ['Where are you?', 'Where are you located?'], ['Services', 'What services do you offer?'], ['Call or text', 'What is your phone number?']].forEach(([label, q]) => {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = label;
+        b.addEventListener('click', () => ask(q)); chips.append(b);
+      });
+    }
+    let started = false;
+    function setOpen(on) {
+      box.classList.toggle('open', on); fab.style.display = on ? 'none' : '';
+      fab.setAttribute('aria-expanded', String(on));
+      if (on) { if (!started) { started = true; start(); } else paintStatus(); setTimeout(() => input.focus(), 30); }
+      else fab.focus();
+    }
+    fab.addEventListener('click', () => setOpen(true));
+    document.getElementById('chat-x').addEventListener('click', () => setOpen(false));
+    box.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    document.getElementById('chat-form').addEventListener('submit', (e) => { e.preventDefault(); const v = input.value; input.value = ''; ask(v); });
+    window.__chatAnswer = answer; // exposed so the question list can be tested without clicking
+  })();
 </script>
 </body>
 </html>
