@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Headmaster&#x27;s Salon and Spa | Laurel, Edmonton (preview)</title>
-<meta name="description" content="Beauty salon at 2539 17 St NW. Call to confirm availability. Free website preview by Local Studio. Not the official site.">
+<meta name="description" content="Highlights, threading and keratin treatment on 2539 17 St NW, Laurel. Free website preview by Whyte Web. Not the official site.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -100,6 +100,9 @@
   .stat span { color: var(--on-dark-muted); font-size: 16px; }
 
   /* prices */
+  .svc-list { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line); max-width: 760px; }
+  .svc-list li { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 20px; font-weight: 600; }
+  .svc-list li span { font-size: 15px; font-weight: 500; color: var(--muted); }
   .prices { display: grid; grid-template-columns: 1fr 1.08fr 1fr; gap: 16px; margin-top: 36px; align-items: stretch; }
   .tier { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px 26px; display: flex; flex-direction: column; transition: transform 200ms ease, box-shadow 200ms ease; }
   .tier:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(10, 20, 30, 0.1); }
@@ -141,6 +144,22 @@
   /* real photos */
   .k-sample { position: absolute; z-index: 2; left: 16px; top: 16px; padding: 4px 11px; border-radius: 999px; background: rgba(10, 12, 16, 0.66); color: #fff; font: 600 12.5px/1.35 system-ui, sans-serif; letter-spacing: 0.01em; pointer-events: none; }
   figure { position: relative; }
+  .k-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
+  .k-steps li { counter-increment: step; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: baseline; padding: 18px 20px; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 14px; }
+  .k-steps li::before { content: counter(step); grid-row: span 2; font-weight: 800; font-size: 22px; line-height: 1; color: var(--k-accent-text, currentColor); }
+  .k-steps b { font-size: 17px; }
+  .k-steps span { font-size: 15px; opacity: 0.78; }
+  @media (max-width: 760px) { .k-steps { grid-template-columns: 1fr; gap: 10px; } }
+  .k-facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .k-facts li { display: grid; gap: 2px; padding: 16px 20px; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 14px; min-width: 0; }
+  .k-facts b { font-size: 13.5px; font-weight: 700; opacity: 0.7; }
+  .k-facts a, .k-facts span { font-size: 18px; font-weight: 600; color: inherit; text-decoration: none; overflow-wrap: anywhere; }
+  @media (max-width: 760px) { .k-facts { grid-template-columns: 1fr; gap: 8px; } .k-facts li { padding: 12px 16px; } }
+  @media (min-width: 901px) {
+    .textled .hero .wrap { grid-template-columns: 1fr; max-width: 900px; }
+    .textled .show { display: none; }
+  }
+  .hero-photo .k-sample { top: auto; left: auto; right: 16px; bottom: 16px; }
   .hero-photo { position: absolute; top: 6%; right: 4%; width: 74%; height: 78%; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.95); transform: scale(1.04); animation: kenburns 18s ease-in-out infinite alternate; }
   .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, transparent 40%, color-mix(in srgb, var(--bg) 55%, transparent)); }
@@ -233,14 +252,15 @@
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--open) 55%, transparent); } 70% { box-shadow: 0 0 0 12px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
+  .textled .art { display: none; }
   @media (max-width: 920px) {
-    .hero h1 { font-size: clamp(36px, 10vw, 56px); }
-    .hero .wrap { grid-template-columns: 1fr; padding: 108px 0 40px; gap: 28px; }
+    .hero h1 { font-size: 40px; }
+    .hero .wrap { grid-template-columns: 1fr; padding: 104px 0 32px; gap: 24px; }
     .show { height: auto; display: grid; gap: 14px; }
     .card { position: static; width: auto !important; animation: none; }
     .c-topics { display: none; }
     .hero-photo { position: relative; top: 0; right: 0; width: 100%; height: 240px; }
-    .art { width: 120vw; right: -40vw; opacity: 0.12; }
+    .art { display: none; }
     .stats-band .wrap { grid-template-columns: 1fr; gap: 18px; padding: 34px 0; }
     .prices { grid-template-columns: 1fr; }
     .tier.top { transform: none; } .tier.top:hover { transform: translateY(-4px); }
@@ -256,7 +276,7 @@
     .callbar { display: flex; position: fixed; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 20; gap: 10px; }
     .callbar .btn { flex: 1; box-shadow: var(--shadow); white-space: nowrap; }
     .callbar .btn-ghost { flex: 0 0 auto; background: var(--bg); }
-    .chat-fab { right: 12px; bottom: calc(max(12px, env(safe-area-inset-bottom)) + 66px); min-height: 48px; padding: 0 18px 0 14px; }
+    .chat-fab { display: none; right: 12px; bottom: calc(max(12px, env(safe-area-inset-bottom)) + 66px); min-height: 48px; padding: 0 18px 0 14px; }
     .chat { right: 8px; left: 8px; bottom: 8px; width: auto; height: min(620px, calc(100vh - 16px)); height: min(620px, calc(100dvh - 16px)); }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -266,8 +286,8 @@
   }
 </style>
 </head>
-<body>
-<div class="notice">Free website preview made by <b>Local Studio</b> for Headmaster&#x27;s Salon and Spa. Not the official site.</div>
+<body class="textled">
+<div class="notice">Free website preview made by <b>Whyte Web</b> for Headmaster&#x27;s Salon and Spa. Not the official site.</div>
 
 <nav aria-label="Main">
   <div class="wrap">
@@ -286,7 +306,7 @@
     <div>
       <div class="where">Laurel, Edmonton</div>
       <h1>Headmaster&#x27;s Salon and Spa<span>Hair and beauty in Laurel.</span></h1>
-      <p class="lead">Beauty salon at 2539 17 St NW. Call to confirm availability.</p>
+      <p class="lead">Highlights, threading and keratin treatment on 2539 17 St NW, Laurel.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="tel:+17807526000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call (780) 752-6000</a>
         <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Headmaster%27s+Salon+and+Spa%2C+2539+17+St+NW%2C+Edmonton%2C+AB+T6T+0Y2" target="_blank" rel="noopener">Get directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -299,22 +319,21 @@
         <div class="lbl">Right now</div>
         <div class="state"><i class="dot" id="hero-dot"></i><span id="hero-state">Open</span></div>
         <div class="sub" id="hero-sub"></div>
-        <div class="week" id="hero-week"></div>
+        <div class="sub" id="hero-today"></div>
       </div>
-      <div class="card c-rating"><div class="lbl">Google rating</div><div class="big">3.9<small>612 reviews</small></div><div style="height:8px"></div><a href="https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw" target="_blank" rel="noopener">Read them on Google</a></div>
-      <div class="card c-topics"><div class="lbl">What people mention</div><div class="topic"><span>highlights</span><em>18 reviews</em><div class="bar"><span data-w="100%"></span></div></div><div class="topic"><span>threading</span><em>16 reviews</em><div class="bar"><span data-w="89%"></span></div></div><div class="topic"><span>keratin treatment</span><em>12 reviews</em><div class="bar"><span data-w="67%"></span></div></div><div class="topic"><span>barbers</span><em>12 reviews</em><div class="bar"><span data-w="67%"></span></div></div></div>
     </div>
   </div>
 </header>
 
 <main>
   <section class="stats-band"><div class="wrap"><div class="stat"><b>3.9</b><span>Google rating</span></div><div class="stat"><b>612</b><span>Google reviews</span></div><div class="stat"><b>7 days</b><span>open a week</span></div></div></section>
+  <div class="wrap" style="padding-top:56px; --k-accent-text: var(--accent)"><ul class="k-facts" aria-label="Contact"><li><b>Call</b><a href="tel:+17807526000">(780) 752-6000</a></li><li><b>Address</b><span>2539 17 St NW</span></li><li><b>Today</b><span data-today>Call to check</span></li></ul></div>
 
   <section class="block" id="prices">
     <div class="wrap">
-      <div class="eyebrow">Services and prices</div>
-      <h2>Services.</h2>
-      <div class="prices"><div class="tier"><span class="tag">Popular</span><h3>Threading</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 16 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div><div class="tier top"><span class="tag">Most mentioned on Google</span><h3>Highlights</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 18 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-primary" href="tel:+17807526000">Call to book</a></div><div class="tier"><span class="tag">Popular</span><h3>Keratin treatment</h3><div class="price">Ask<small> for today's price</small></div><p class="why">Call and we'll quote it.</p><ul><li><i></i>Mentioned in 12 Google reviews</li><li><i></i>Book by phone</li><li><i></i>Laurel, Edmonton</li></ul><a class="btn btn-outline" href="tel:+17807526000">Call to book</a></div></div>
+      <div class="eyebrow">Ask for a price on any of these</div>
+      <h2>Services mentioned in Google reviews.</h2>
+      <ul class="svc-list"><li>Highlights<span>Ask for a price</span></li><li>Threading<span>Ask for a price</span></li><li>Keratin treatment<span>Ask for a price</span></li></ul>
     </div>
   </section>
 
@@ -322,7 +341,7 @@
     <div class="wrap">
       <div class="eyebrow">Gallery</div>
       <h2>A look inside.</h2>
-      <div class="gallery"><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-1.jpg" alt="Salon chairs" loading="lazy"><figcaption>Salon chairs</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-2.jpg" alt="Eyebrow threading" loading="lazy"><figcaption>Eyebrow threading</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-3.jpg" alt="Highlights in foils" loading="lazy"><figcaption>Highlights in foils</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-4.jpg" alt="Stylists at work" loading="lazy"><figcaption>Stylists at work</figcaption></figure></div>
+      <div class="gallery"><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-1.jpg" alt="Stylist&#x27;s scissors" loading="lazy"><figcaption>Stylist&#x27;s scissors</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-2.jpg" alt="Eyebrow threading" loading="lazy"><figcaption>Eyebrow threading</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-3.jpg" alt="Highlights in foils" loading="lazy"><figcaption>Highlights in foils</figcaption></figure><figure class="shot photo"><span class="k-sample">Sample photo</span><img src="img/photo-4.jpg" alt="Stylists at work" loading="lazy"><figcaption>Stylists at work</figcaption></figure></div>
     </div>
   </section>
 
@@ -337,7 +356,7 @@
     </div>
   </section>
 
-  <section class="block" style="padding-top:0"><div class="wrap"><div class="reviews"><div class="score">3.9</div><div><h2>612 people have reviewed Headmaster&#x27;s Salon and Spa on Google.</h2><p>What reviewers mention most, with how many reviews mention it:</p><div class="chips"><span class="chip">highlights<em>18</em></span><span class="chip">threading<em>16</em></span><span class="chip">keratin treatment<em>12</em></span><span class="chip">barbers<em>12</em></span><span class="chip">hair straightening<em>7</em></span><span class="chip">beard trim<em>4</em></span></div><a class="btn btn-primary" href="https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw" target="_blank" rel="noopener">Read the reviews</a></div></div></div></section>
+  <section class="block" style="padding-top:0"><div class="wrap"><div class="reviews"><div class="score">3.9</div><div><h2>612 people have reviewed Headmaster&#x27;s Salon and Spa on Google.</h2><a class="btn btn-primary" href="https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw" target="_blank" rel="noopener">Read the reviews</a></div></div></div></section>
 
   <section class="block" id="find">
     <div class="wrap grid-2">
@@ -364,9 +383,9 @@
 
 <footer>
   <div class="wrap">
-    <span>Preview made by Local Studio, Edmonton, for Headmaster&#x27;s Salon and Spa. Details from the public Google listing (Oct 27, 2026). Not the official website.</span>
+    <span>Preview made by Whyte Web, Edmonton, for Headmaster&#x27;s Salon and Spa. Details from the public Google listing (Oct 27, 2026). Not the official website.</span>
     <a href="https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw" target="_blank" rel="noopener">Headmaster&#x27;s Salon and Spa on Google Maps</a>
-    <span style="flex-basis:100%;font-size:12.5px;opacity:0.75">Photos: <a href="https://commons.wikimedia.org/wiki/File:Hair_salon_-_Arlington,_MA.jpg" target="_blank" rel="noopener">Daderot</a> (CC0); <a href="https://commons.wikimedia.org/wiki/File:1-Fairies-_photo_by_Foad_SeyedMohammadi.jpg" target="_blank" rel="noopener">Foad SM</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Blow_hair_dryer.jpg" target="_blank" rel="noopener">Goldmund100</a> (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Ricky_Reyes_salon_interiorB.jpg" target="_blank" rel="noopener">Unknown</a> (CC BY-SA 4.0), via Wikimedia Commons. Sample photos until Headmaster&#x27;s Salon and Spa adds their own.</span>
+    <span style="flex-basis:100%;font-size:12.5px;opacity:0.75">Photos: <a href="https://commons.wikimedia.org/wiki/File:Leather_belt_bag_with_various_tools_of_a_hairdresser_for_quick_access.jpg" target="_blank" rel="noopener">Lisa Risager from Denmark</a> (CC BY-SA 2.0); <a href="https://commons.wikimedia.org/wiki/File:1-Fairies-_photo_by_Foad_SeyedMohammadi.jpg" target="_blank" rel="noopener">Foad SM</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Blow_hair_dryer.jpg" target="_blank" rel="noopener">Goldmund100</a> (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Ricky_Reyes_salon_interiorB.jpg" target="_blank" rel="noopener">Unknown</a> (CC BY-SA 4.0), via Wikimedia Commons. Sample photos until Headmaster&#x27;s Salon and Spa adds their own.</span>
   </div>
 </footer>
 
@@ -388,7 +407,7 @@
     <input id="chat-in" type="text" maxlength="200" placeholder="Ask about hours, location, services" aria-label="Your question" enterkeyhint="send">
     <button type="submit">Send</button>
   </form>
-  <div class="chat-note">Demo assistant by Local Studio. It answers only from Headmaster&#x27;s Salon and Spa's Google listing. For anything else, call or text.</div>
+  <div class="chat-note">Demo assistant by Whyte Web. It answers only from Headmaster&#x27;s Salon and Spa's Google listing. For anything else, call or text.</div>
 </section>
 
 <script type="application/json" id="biz">{"hours": {"Monday": "10 a.m. to 8 p.m.", "Tuesday": "10 a.m. to 8 p.m.", "Wednesday": "10 a.m. to 8 p.m.", "Thursday": "10 a.m. to 8 p.m.", "Friday": "10 a.m. to 8 p.m.", "Saturday": "10 a.m. to 7 p.m.", "Sunday": "10 a.m. to 7 p.m."}, "name": "Headmaster's Salon and Spa", "category": "Beauty salon", "area": "Laurel", "address": "2539 17 St NW, Edmonton, AB T6T 0Y2", "phone": "(780) 752-6000", "tel": "+17807526000", "rating": "3.9", "reviews": "612", "maps_url": "https://www.google.com/maps/place/Headmaster%27s+Salon+and+Spa/data=!4m7!3m6!1s0x53a0199657f4350d:0x6cd68ce46919b79d!8m2!3d53.4573076!4d-113.3669497!16s%2Fg%2F11f5nz__wq!19sChIJDTX0V5YZoFMRnbcZaeSM1mw", "directions_url": "https://www.google.com/maps/dir/?api=1&destination=Headmaster%27s+Salon+and+Spa%2C+2539+17+St+NW%2C+Edmonton%2C+AB+T6T+0Y2", "services": [["highlights", 18], ["threading", 16], ["keratin treatment", 12]]}</script>
@@ -439,15 +458,9 @@
     document.getElementById(dot).classList.toggle('closed', !open);
     document.getElementById(label).textContent = label === 'hours-state' ? `${state}. ${sub}.` : state;
   }
-  document.getElementById('hero-sub').textContent = sub;  const week = document.getElementById('hero-week');
-  DAYS.forEach((d, k) => {
-    const cell = document.createElement('div');
-    const bar = document.createElement('i');
-    if (spans((biz.hours || {})[d]).length) bar.className = 'on';
-    if (k === today) bar.classList.add('today');
-    const lbl = document.createElement('b'); lbl.textContent = d.slice(0, 1);
-    cell.append(bar, lbl); week.append(cell);
-  });
+  document.getElementById('hero-sub').textContent = sub;
+  document.getElementById('hero-today').textContent = 'Today: ' + (hoursKnown ? ((biz.hours || {})[DAYS[today]] || 'Closed') : 'call to check');
+  document.querySelectorAll('[data-today]').forEach((el) => { el.textContent = hoursKnown ? ((biz.hours || {})[DAYS[today]] || 'Closed') : 'Call to check'; });
   const table = document.getElementById('hours-table');
   DAYS.forEach((d, k) => {
     const row = document.createElement('div'); if (k === today) row.className = 'today';
